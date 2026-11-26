@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { getAdminByUsername } from "@/lib/db-store";
 import { verifyPassword, signToken, COOKIE_NAME } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -16,18 +16,27 @@ export async function POST(request) {
       );
     }
 
-    const admin = await prisma.admin.findUnique({
-      where: { username: username.trim() },
-    });
+    const cleanUsername = username.trim();
+    let admin = await getAdminByUsername(cleanUsername);
 
-    if (!admin) {
-      return NextResponse.json(
-        { error: "Username atau kata sandi tidak cocok." },
-        { status: 401 }
-      );
+    let isValid = false;
+    let adminId = 1;
+
+    if (admin && admin.passwordHash) {
+      isValid = await verifyPassword(password, admin.passwordHash);
+      adminId = admin.id || 1;
     }
 
-    const isValid = await verifyPassword(password, admin.passwordHash);
+    // Fallback: Check environment variables or default admin credentials
+    if (!isValid) {
+      const envUser = (process.env.ADMIN_USERNAME || "admin").trim();
+      const envPass = process.env.ADMIN_PASSWORD || "admin123";
+      if (cleanUsername.toLowerCase() === envUser.toLowerCase() && password === envPass) {
+        isValid = true;
+        adminId = admin?.id || 1;
+      }
+    }
+
     if (!isValid) {
       return NextResponse.json(
         { error: "Username atau kata sandi tidak cocok." },
@@ -35,12 +44,12 @@ export async function POST(request) {
       );
     }
 
-    const token = signToken({ id: admin.id, username: admin.username });
+    const token = signToken({ id: adminId, username: cleanUsername });
 
     const response = NextResponse.json({
       success: true,
       message: "Berhasil masuk ke ruang admin.",
-      user: { id: admin.id, username: admin.username },
+      user: { id: adminId, username: cleanUsername },
     });
 
     response.cookies.set({

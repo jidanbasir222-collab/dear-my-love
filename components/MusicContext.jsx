@@ -4,9 +4,12 @@ import React, { createContext, useContext, useState, useEffect, useRef } from "r
 
 const MusicContext = createContext(null);
 
-export function MusicProvider({ children }) {
-  const [songs, setSongs] = useState([]);
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+export function MusicProvider({ children, initialSongs = [] }) {
+  const initialList = Array.isArray(initialSongs) && initialSongs.length > 0 ? initialSongs : [];
+  const defaultIdx = initialList.findIndex((s) => s.isDefault);
+
+  const [songs, setSongs] = useState(initialList);
+  const [currentSongIndex, setCurrentSongIndex] = useState(defaultIdx >= 0 ? defaultIdx : 0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -16,7 +19,7 @@ export function MusicProvider({ children }) {
 
   const audioRef = useRef(null);
 
-  // Fetch playlist from API
+  // Fetch playlist from API in background to ensure sync with admin updates
   useEffect(() => {
     async function loadSongs() {
       try {
@@ -25,14 +28,17 @@ export function MusicProvider({ children }) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
             setSongs(data);
-            const defaultIndex = data.findIndex((s) => s.isDefault);
-            if (defaultIndex !== -1) {
-              setCurrentSongIndex(defaultIndex);
-            }
+            setCurrentSongIndex((prev) => {
+              if (prev >= data.length) {
+                const def = data.findIndex((s) => s.isDefault);
+                return def >= 0 ? def : 0;
+              }
+              return prev;
+            });
           }
         }
       } catch (err) {
-        console.error("Failed to load songs:", err);
+        console.warn("Client fetch /api/songs fallback to initial songs:", err);
       }
     }
     loadSongs();
@@ -44,14 +50,17 @@ export function MusicProvider({ children }) {
   useEffect(() => {
     if (audioRef.current && currentSong?.audioUrl) {
       const wasPlaying = isPlaying;
-      audioRef.current.src = currentSong.audioUrl;
-      audioRef.current.load();
+      const targetSrc = currentSong.audioUrl;
+      if (!audioRef.current.src.endsWith(targetSrc)) {
+        audioRef.current.src = targetSrc;
+        audioRef.current.load();
+      }
       if (wasPlaying && hasInteracted) {
         audioRef.current
           .play()
           .then(() => setIsPlaying(true))
           .catch((err) => {
-            console.warn("Autoplay blocked or audio load error:", err);
+            console.warn("Autoplay restriction or audio playback blocked:", err);
             setIsPlaying(false);
           });
       }
@@ -74,6 +83,11 @@ export function MusicProvider({ children }) {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
+      const targetSrc = currentSong.audioUrl;
+      if (!audioRef.current.src.endsWith(targetSrc)) {
+        audioRef.current.src = targetSrc;
+        audioRef.current.load();
+      }
       audioRef.current
         .play()
         .then(() => setIsPlaying(true))
@@ -91,6 +105,7 @@ export function MusicProvider({ children }) {
       setCurrentSongIndex(index);
       if (audioRef.current) {
         audioRef.current.src = song.audioUrl;
+        audioRef.current.load();
         audioRef.current
           .play()
           .then(() => setIsPlaying(true))
@@ -118,10 +133,15 @@ export function MusicProvider({ children }) {
     }
   };
 
-  // Triggered when user clicks "Buka Kisah Kita"
+  // Triggered when user clicks "Buka Kisah Kita" (gesture unlocks browser audio)
   const startMusicOnUserAction = () => {
     setHasInteracted(true);
-    if (audioRef.current && currentSong && !isPlaying) {
+    if (audioRef.current && currentSong?.audioUrl) {
+      const targetSrc = currentSong.audioUrl;
+      if (!audioRef.current.src.endsWith(targetSrc)) {
+        audioRef.current.src = targetSrc;
+        audioRef.current.load();
+      }
       audioRef.current
         .play()
         .then(() => setIsPlaying(true))
@@ -171,7 +191,9 @@ export function MusicProvider({ children }) {
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={handleEnded}
-        preload="metadata"
+        onError={(e) => console.warn("Audio element error event:", e)}
+        playsInline
+        preload="auto"
       />
       {children}
     </MusicContext.Provider>

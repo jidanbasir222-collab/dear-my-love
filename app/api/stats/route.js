@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { getMemories, getMilestones, getSongs, getBucketItems } from "@/lib/db-store";
 import { getSessionUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -12,21 +12,21 @@ export async function GET() {
       return NextResponse.json({ error: "Akses tidak sah." }, { status: 401 });
     }
 
-    const [memoriesCount, milestonesCount, songsCount, bucketItems] = await Promise.all([
-      prisma.memory.count(),
-      prisma.timelineMilestone.count(),
-      prisma.song.count(),
-      prisma.bucketItem.findMany(),
+    const [memories, milestones, songs, bucketItems] = await Promise.all([
+      getMemories(),
+      getMilestones(),
+      getSongs(),
+      getBucketItems(),
     ]);
 
-    const totalBucket = bucketItems.length;
-    const completedBucket = bucketItems.filter((item) => item.completed).length;
+    const totalBucket = (bucketItems || []).length;
+    const completedBucket = (bucketItems || []).filter((item) => item.completed).length;
     const bucketPercentage = totalBucket > 0 ? Math.round((completedBucket / totalBucket) * 100) : 0;
 
     return NextResponse.json({
-      memoriesCount,
-      milestonesCount,
-      songsCount,
+      memoriesCount: (memories || []).length,
+      milestonesCount: (milestones || []).length,
+      songsCount: (songs || []).length,
       totalBucket,
       completedBucket,
       bucketPercentage,

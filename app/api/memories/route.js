@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { getMemories, createMemory } from "@/lib/db-store";
 import { getSessionUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -10,13 +10,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
 
-    const where = category && category !== "Semua" ? { category } : {};
-
-    const memories = await prisma.memory.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-    });
-
+    const memories = await getMemories(category);
     return NextResponse.json(memories);
   } catch (error) {
     console.error("Get memories error:", error);
@@ -43,18 +37,15 @@ export async function POST(request) {
       );
     }
 
-    // Default random slight polaroid angle between -3 and 3 degrees
     const randomRot = (Math.random() * 6 - 3).toFixed(1);
 
-    const memory = await prisma.memory.create({
-      data: {
-        title,
-        caption: caption || "",
-        date,
-        photoUrl,
-        category: category || "Momen Spesial",
-        rotation: rotation !== undefined ? parseFloat(rotation) : parseFloat(randomRot),
-      },
+    const memory = await createMemory({
+      title,
+      caption: caption || "",
+      date,
+      photoUrl,
+      category: category || "Momen Spesial",
+      rotation: rotation !== undefined ? parseFloat(rotation) : parseFloat(randomRot),
     });
 
     return NextResponse.json({

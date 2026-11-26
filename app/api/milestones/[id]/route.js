@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { updateMilestone, deleteMilestone } from "@/lib/db-store";
 import { getSessionUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -15,16 +15,13 @@ export async function PUT(request, { params }) {
     const id = parseInt(params.id, 10);
     const { date, title, description, photoUrl, location, order } = await request.json();
 
-    const updated = await prisma.timelineMilestone.update({
-      where: { id },
-      data: {
-        date: date !== undefined ? date : undefined,
-        title: title !== undefined ? title : undefined,
-        description: description !== undefined ? description : undefined,
-        photoUrl: photoUrl !== undefined ? photoUrl : undefined,
-        location: location !== undefined ? location : undefined,
-        order: order !== undefined ? parseInt(order, 10) : undefined,
-      },
+    const updated = await updateMilestone(id, {
+      date,
+      title,
+      description,
+      photoUrl,
+      location,
+      order: order !== undefined ? parseInt(order, 10) : undefined,
     });
 
     return NextResponse.json({
@@ -49,9 +46,7 @@ export async function DELETE(request, { params }) {
     }
 
     const id = parseInt(params.id, 10);
-    await prisma.timelineMilestone.delete({
-      where: { id },
-    });
+    await deleteMilestone(id);
 
     return NextResponse.json({
       success: true,

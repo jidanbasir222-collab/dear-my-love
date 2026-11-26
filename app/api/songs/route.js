@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { getSongs, createSong } from "@/lib/db-store";
 import { getSessionUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -7,9 +7,7 @@ export const runtime = "nodejs";
 
 export async function GET() {
   try {
-    const songs = await prisma.song.findMany({
-      orderBy: [{ order: "asc" }, { id: "asc" }],
-    });
+    const songs = await getSongs();
     return NextResponse.json(songs);
   } catch (error) {
     console.error("Get songs error:", error);
@@ -36,22 +34,14 @@ export async function POST(request) {
       );
     }
 
-    if (isDefault) {
-      await prisma.song.updateMany({
-        data: { isDefault: false },
-      });
-    }
-
-    const song = await prisma.song.create({
-      data: {
-        title,
-        artist,
-        audioUrl,
-        coverUrl: coverUrl || null,
-        duration: duration || "3:30",
-        order: order !== undefined ? parseInt(order, 10) : 0,
-        isDefault: Boolean(isDefault),
-      },
+    const song = await createSong({
+      title,
+      artist,
+      audioUrl,
+      coverUrl: coverUrl || null,
+      duration: duration || "3:30",
+      order: order !== undefined ? parseInt(order, 10) : 0,
+      isDefault: Boolean(isDefault),
     });
 
     return NextResponse.json({

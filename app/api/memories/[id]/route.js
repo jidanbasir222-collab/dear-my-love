@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { updateMemory, deleteMemory } from "@/lib/db-store";
 import { getSessionUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -15,16 +15,13 @@ export async function PUT(request, { params }) {
     const id = parseInt(params.id, 10);
     const { title, caption, date, photoUrl, category, rotation } = await request.json();
 
-    const updated = await prisma.memory.update({
-      where: { id },
-      data: {
-        title: title !== undefined ? title : undefined,
-        caption: caption !== undefined ? caption : undefined,
-        date: date !== undefined ? date : undefined,
-        photoUrl: photoUrl !== undefined ? photoUrl : undefined,
-        category: category !== undefined ? category : undefined,
-        rotation: rotation !== undefined ? parseFloat(rotation) : undefined,
-      },
+    const updated = await updateMemory(id, {
+      title,
+      caption,
+      date,
+      photoUrl,
+      category,
+      rotation: rotation !== undefined ? parseFloat(rotation) : undefined,
     });
 
     return NextResponse.json({
@@ -49,9 +46,7 @@ export async function DELETE(request, { params }) {
     }
 
     const id = parseInt(params.id, 10);
-    await prisma.memory.delete({
-      where: { id },
-    });
+    await deleteMemory(id);
 
     return NextResponse.json({
       success: true,

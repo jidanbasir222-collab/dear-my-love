@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { getMilestones, createMilestone } from "@/lib/db-store";
 import { getSessionUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -7,9 +7,7 @@ export const runtime = "nodejs";
 
 export async function GET() {
   try {
-    const milestones = await prisma.timelineMilestone.findMany({
-      orderBy: [{ order: "asc" }, { id: "asc" }],
-    });
+    const milestones = await getMilestones();
     return NextResponse.json(milestones);
   } catch (error) {
     console.error("Get milestones error:", error);
@@ -36,15 +34,13 @@ export async function POST(request) {
       );
     }
 
-    const milestone = await prisma.timelineMilestone.create({
-      data: {
-        date,
-        title,
-        description,
-        photoUrl: photoUrl || null,
-        location: location || null,
-        order: order !== undefined ? parseInt(order, 10) : 0,
-      },
+    const milestone = await createMilestone({
+      date,
+      title,
+      description,
+      photoUrl: photoUrl || null,
+      location: location || null,
+      order: order !== undefined ? parseInt(order, 10) : 0,
     });
 
     return NextResponse.json({

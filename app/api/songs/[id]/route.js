@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { updateSong, deleteSong } from "@/lib/db-store";
 import { getSessionUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -15,24 +15,14 @@ export async function PUT(request, { params }) {
     const id = parseInt(params.id, 10);
     const { title, artist, audioUrl, coverUrl, duration, order, isDefault } = await request.json();
 
-    if (isDefault) {
-      await prisma.song.updateMany({
-        where: { id: { not: id } },
-        data: { isDefault: false },
-      });
-    }
-
-    const updated = await prisma.song.update({
-      where: { id },
-      data: {
-        title: title !== undefined ? title : undefined,
-        artist: artist !== undefined ? artist : undefined,
-        audioUrl: audioUrl !== undefined ? audioUrl : undefined,
-        coverUrl: coverUrl !== undefined ? coverUrl : undefined,
-        duration: duration !== undefined ? duration : undefined,
-        order: order !== undefined ? parseInt(order, 10) : undefined,
-        isDefault: isDefault !== undefined ? Boolean(isDefault) : undefined,
-      },
+    const updated = await updateSong(id, {
+      title,
+      artist,
+      audioUrl,
+      coverUrl,
+      duration,
+      order: order !== undefined ? parseInt(order, 10) : undefined,
+      isDefault: isDefault !== undefined ? Boolean(isDefault) : undefined,
     });
 
     return NextResponse.json({
@@ -57,9 +47,7 @@ export async function DELETE(request, { params }) {
     }
 
     const id = parseInt(params.id, 10);
-    await prisma.song.delete({
-      where: { id },
-    });
+    await deleteSong(id);
 
     return NextResponse.json({
       success: true,

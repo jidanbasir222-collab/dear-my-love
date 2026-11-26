@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { getAdminByUsername, updateAdminPassword } from "@/lib/db-store";
 import { getSessionUser, verifyPassword, hashPassword } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -21,15 +21,22 @@ export async function POST(request) {
       );
     }
 
-    const admin = await prisma.admin.findUnique({
-      where: { id: session.id },
-    });
+    const username = session.username || "admin";
+    const admin = await getAdminByUsername(username);
 
-    if (!admin) {
-      return NextResponse.json({ error: "Akun admin tidak ditemukan." }, { status: 404 });
+    let isValid = false;
+    if (admin && admin.passwordHash) {
+      isValid = await verifyPassword(currentPassword, admin.passwordHash);
     }
 
-    const isValid = await verifyPassword(currentPassword, admin.passwordHash);
+    // Fallback: Check environment variable if hash didn't match
+    if (!isValid) {
+      const envPass = process.env.ADMIN_PASSWORD || "admin123";
+      if (currentPassword === envPass) {
+        isValid = true;
+      }
+    }
+
     if (!isValid) {
       return NextResponse.json(
         { error: "Kata sandi saat ini salah." },
@@ -37,11 +44,8 @@ export async function POST(request) {
       );
     }
 
-    const passwordHash = await hashPassword(newPassword);
-    await prisma.admin.update({
-      where: { id: admin.id },
-      data: { passwordHash },
-    });
+    const newHash = await hashPassword(newPassword);
+    await updateAdminPassword(session.id || 1, newHash);
 
     return NextResponse.json({
       success: true,
