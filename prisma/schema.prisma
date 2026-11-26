@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model SiteSettings {
+  id              Int      @id @default(1)
+  coupleName1     String   @default("ahmad zaidan")
+  coupleName2     String   @default("zaskia nisa syabani")
+  anniversaryDate String   @default("2023-11-22T00:00:00")
+  websiteTitle    String   @default("OUR LITTLE UNIVERSE")
+  tagline         String   @default("Every love story has a universe. This one is ours.")
+  heroPhoto       String   @default("/images/hero.jpg")
+  finalMessage    String   @default("Terima kasih telah menjadi bagian terindah dalam setiap hariku. Bersamamu, hal-hal sederhana terasa begitu luar biasa.")
+  finalPhoto      String   @default("/images/final.jpg")
+  themeColors     String   @default("{\"ivory\":\"#FFF9F3\",\"softPink\":\"#F3D5D8\",\"dustyRose\":\"#D9A6AC\",\"burgundy\":\"#743B4A\",\"mutedGold\":\"#C7A36B\"}")
+  updatedAt       DateTime @updatedAt
+}
+
+model TimelineMilestone {
+  id          Int      @id @default(autoincrement())
+  order       Int      @default(0)
+  date        String
+  title       String
+  description String
+  photoUrl    String?
+  location    String?
+  createdAt   DateTime @default(now())
+}
+
+model Memory {
+  id        Int      @id @default(autoincrement())
+  title     String
+  caption   String?
+  date      String
+  photoUrl  String
+  category  String   @default("Momen Spesial")
+  rotation  Float    @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Letter {
+  id        Int      @id @default(1)
+  recipient String   @default("Sayangku")
+  title     String   @default("Sebuah Surat Dari Lubuk Hatiku")
+  content   String
+  signature String   @default("Dengan segenap cintaku, ahmad zaidan")
+  date      String   @default("22 November 2026")
+  updatedAt DateTime @updatedAt
+}
+
+model Song {
+  id        Int      @id @default(autoincrement())
+  title     String
+  artist    String
+  audioUrl  String
+  coverUrl  String?
+  duration  String   @default("3:45")
+  order     Int      @default(0)
+  isDefault Boolean  @default(false)
+}
+
+model Surprise {
+  id          Int      @id @default(1)
+  boxTitle    String   @default("Ada Satu Kejutan Kecil Untukmu...")
+  boxSubtitle String   @default("Sentuh pita kado ini untuk membukanya")
+  message     String
+  photoUrl    String   @default("/images/surprise.jpg")
+  badge       String   @default("Paling Berharga")
+  couponText  String   @default("Kupon Spesial: Berlaku selamanya untuk pelukan tanpa batas & satu hari kencan impianmu!")
+  updatedAt   DateTime @updatedAt
+}
+
+model BucketItem {
+  id            Int      @id @default(autoincrement())
+  title         String
+  category      String   @default("Travel")
+  completed     Boolean  @default(false)
+  completedDate String?
+  note          String?
+  order         Int      @default(0)
+}

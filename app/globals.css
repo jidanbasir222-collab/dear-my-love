@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-ivory: #FFF9F3;
+  --bg-soft-pink: #F3D5D8;
+  --color-dusty-rose: #D9A6AC;
+  --color-burgundy: #743B4A;
+  --color-gold: #C7A36B;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-jakarta), sans-serif;
+  background-color: #FFF9F3;
+  color: #743B4A;
+}
+
+body {
+  background-color: #FFF9F3;
+  color: #743B4A;
+  min-height: 100vh;
+  overflow-x: hidden;
+  selection-background-color: #D9A6AC;
+  selection-color: #ffffff;
+}
+
+::selection {
+  background-color: #D9A6AC;
+  color: #ffffff;
+}
+
+/* Custom romantic scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FFF9F3;
+}
+::-webkit-scrollbar-thumb {
+  background: #D9A6AC;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #743B4A;
+}
+
+/* Polaroid Photo Card styling */
+.polaroid-card {
+  background: #ffffff;
+  padding: 14px 14px 24px 14px;
+  box-shadow: 0 10px 25px -5px rgba(116, 59, 74, 0.15), 0 4px 12px -2px rgba(116, 59, 74, 0.08);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.polaroid-card:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 20px 35px -5px rgba(116, 59, 74, 0.25), 0 8px 18px -3px rgba(116, 59, 74, 0.12);
+}
+
+/* Paper Texture Pattern for Letter */
+.parchment-texture {
+  background-color: #FFFBF7;
+  background-image: radial-gradient(#F3D5D8 0.75px, transparent 0.75px), radial-gradient(#D9A6AC 0.75px, #FFFBF7 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+/* Subtle Starfield / Universe Glow */
+.starfield-glow {
+  background: radial-gradient(ellipse at top, rgba(243, 213, 216, 0.4) 0%, rgba(255, 249, 243, 0.95) 70%, #FFF9F3 100%);
+}
+
+.dark-universe-glow {
+  background: radial-gradient(ellipse at center, #4E1F2C 0%, #2B0B14 60%, #17040A 100%);
+}
+
+/* Handwritten class helper */
+.font-love {
+  font-family: var(--font-dancing), cursive;
+}
+
+.font-heading {
+  font-family: var(--font-playfair), serif;
+}
+
+/* Smooth glass effect with romantic warmth */
+.romantic-glass {
+  background: rgba(255, 249, 243, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(217, 166, 172, 0.25);
+}
+
+.romantic-glass-dark {
+  background: rgba(43, 11, 20, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(199, 163, 107, 0.25);
+}
