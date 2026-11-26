@@ -1,0 +1,245 @@
+{
+  "settings": {
+    "id": 1,
+    "coupleName1": "Ahmad zaidan",
+    "coupleName2": "zaskia nisa syabani",
+    "anniversaryDate": "2026-09-08",
+    "websiteTitle": "OUR LITTLE UNIVERSE",
+    "tagline": "Every love story has a universe. This one is ours.",
+    "heroPhoto": "/uploads/1795665069349-biyaax.jpeg",
+    "finalMessage": "Terima kasih telah menjadi bagian terindah dalam setiap hariku. Bersamamu, hal-hal sederhana terasa begitu luar biasa.",
+    "finalPhoto": "/uploads/1795665089116-qiv8pc.jpeg",
+    "themeColors": "{\"ivory\":\"#FFF9F3\",\"softPink\":\"#F3D5D8\",\"dustyRose\":\"#D9A6AC\",\"burgundy\":\"#743B4A\",\"mutedGold\":\"#C7A36B\"}"
+  },
+  "admins": [
+    {
+      "id": 1,
+      "username": "admin",
+      "passwordHash": "$2b$10$nFkQRsBEZsStD/8MbqGdy.dQF514LPa5f7MJgLB9BxgZ1diHx0ksO"
+    }
+  ],
+  "milestones": [
+    {
+      "id": 1,
+      "order": 1,
+      "date": "15 november 2025",
+      "title": "Awal Mula Pertemuan",
+      "description": "Hari di mana tatap mata kita pertama kali bertemu di sebuah kedai kopi kecil. Senyuman manismu seketika mengubah duniaku.",
+      "photoUrl": "/uploads/1795665376268-dhthrq.jpeg",
+      "location": "pantai madasari pangandaran"
+    },
+    {
+      "id": 7,
+      "order": 2,
+      "date": "8 september 2026",
+      "title": "awal kenal",
+      "description": "awal kenaal akuu kira kita engga akan sejauh ini akuu kira akuuu engga akan sesayang ini sama kamu ternayata itu semua salah ternyata sekarang kamu jadi orang yang paling aku sayang selain diri aku sendiri",
+      "photoUrl": null,
+      "location": null
+    }
+  ],
+  "memories": [
+    {
+      "id": 2,
+      "title": "pantai madasari pangandaran",
+      "caption": "Angin laut yang menerpa rambutmu dan tawa lepas kita di atas pasir putih.",
+      "date": "15 november 2026",
+      "photoUrl": "/uploads/1795665577817-7jjpwr.jpeg",
+      "category": "Liburan",
+      "rotation": 3.2
+    }
+  ],
+  "letter": {
+    "id": 1,
+    "recipient": "Untuk zaskia nisa syabani, Bidadari Semestaku",
+    "title": "Sebuah Surat Dari Lubuk Hatiku",
+    "content": "Sayangku,\n\nJika semesta ini begitu luas dan tak bertepi, maka rasa cintaku padamu jauh melampaui segala galaksi yang ada.\n\nTerima kasih telah hadir dalam hidupku, membawa pelangi pada hari-hari yang dulu terasa kelabu. Terima kasih atas setiap senyuman manismu yang selalu menjadi penenang di saat duniaku bising dan lelah, serta pelukan hangatmu yang selalu membuatku merasa memiliki rumah sejati.\n\nBersamamu, aku belajar bahwa mencintai bukanlah tentang menemukan kesempurnaan, melainkan tentang saling menggenggam erat dan bertumbuh bersama melintasi suka dan duka. Aku bersyukur untuk setiap detik tawa yang kita bagi, cerita acak sebelum tidur, hingga perdebatan kecil yang selalu berakhir dengan saling memeluk erat.\n\nDi hari jadi kita ini, aku berjanji: aku akan terus memilihmu, hari ini, esok, dan selamanya. Selama nafasku berhembus, semesta kecil ini akan selalu kujaga dan kupenuhi dengan kasih sayang hanya untukmu.\n\nSelamat hari jadi, cintaku. Aku mencintaimu lebih dari jutaan bintang di langit malam.",
+    "signature": "Selamanya milikmu, zaskia nisa syabani ❤️",
+    "date": "22 November"
+  },
+  "songs": [
+    {
+      "id": 6,
+      "title": "all to well",
+      "artist": "taylor swift",
+      "audioUrl": "/uploads/1795665978979-ldttp0.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 6,
+      "isDefault": true
+    },
+    {
+      "id": 7,
+      "title": "negoro angin",
+      "artist": "denny caknan",
+      "audioUrl": "/uploads/1795666075393-xuznj2.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 5,
+      "isDefault": false
+    },
+    {
+      "id": 8,
+      "title": "dering telefonku",
+      "artist": "RAN",
+      "audioUrl": "/uploads/1795666188002-8betsh.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 6,
+      "isDefault": false
+    },
+    {
+      "id": 9,
+      "title": "drop dead",
+      "artist": "olivia rodrigo",
+      "audioUrl": "/uploads/1795666441051-c0cgan.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 7,
+      "isDefault": false
+    },
+    {
+      "id": 10,
+      "title": "about you",
+      "artist": "the 1975",
+      "audioUrl": "/uploads/1795666525631-73p0ff.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 8,
+      "isDefault": false
+    },
+    {
+      "id": 11,
+      "title": "tunggu aku di jakarta",
+      "artist": "sheila on 7",
+      "audioUrl": "/uploads/1795666622667-91i6fi.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 9,
+      "isDefault": false
+    },
+    {
+      "id": 12,
+      "title": "sempurna",
+      "artist": "andra and the backboone",
+      "audioUrl": "/uploads/1795666725264-yyse45.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 7,
+      "isDefault": false
+    },
+    {
+      "id": 13,
+      "title": "sampai kau jadi milikku",
+      "artist": "judika",
+      "audioUrl": "/uploads/1795666891292-n44br7.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 8,
+      "isDefault": false
+    },
+    {
+      "id": 14,
+      "title": "pandangan pertama",
+      "artist": "RAN",
+      "audioUrl": "/uploads/1795667026854-1332sx.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 9,
+      "isDefault": false
+    },
+    {
+      "id": 15,
+      "title": "shape of my heart",
+      "artist": "backstreet boys",
+      "audioUrl": "/uploads/1795667370924-3egtuf.mp3",
+      "coverUrl": null,
+      "duration": "3:30",
+      "order": 10,
+      "isDefault": false
+    }
+  ],
+  "surprise": {
+    "id": 1,
+    "boxTitle": "Ada Satu Kejutan Kecil Untukmu...",
+    "boxSubtitle": "Sentuh pita kado ini untuk membukanya",
+    "message": "Selamat Hari Jadi, Sayangku! Dari miliaran jiwa dan bintang di alam semesta ini, takdir mempertemukanku denganmu. Kamu adalah anugerah terindah yang Tuhan titipkan padaku. Aku sangat mencintaimu, hari ini dan selamanya! ✨💖",
+    "photoUrl": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1000&q=80",
+    "badge": "Kado Cinta Abadi",
+    "couponText": "🎫 Kupon Spesial: Berlaku selamanya untuk pelukan tanpa batas, es krim gratis saat kamu sedih, dan kencan impian kemanapun kamu inginkan!"
+  },
+  "bucket": [
+    {
+      "id": 7,
+      "title": "Menonton konser musisi favorit kita bersama",
+      "category": "Pengalaman",
+      "completed": false,
+      "completedDate": null,
+      "note": "Bernyanyi sekencang mungkin sampai suara kita serak",
+      "order": 7
+    },
+    {
+      "id": 8,
+      "title": "Punya rumah mungil dengan taman bunga dan teras hangat",
+      "category": "Mimpi Bersama",
+      "completed": false,
+      "completedDate": null,
+      "note": "Tempat kita pulang dan saling mendengarkan kisah harian",
+      "order": 8
+    },
+    {
+      "id": 9,
+      "title": "Menua bersama dengan cinta yang tak pernah luntur",
+      "category": "Mimpi Bersama",
+      "completed": false,
+      "completedDate": null,
+      "note": "Rambut boleh memutih, tapi genggaman kita tetap sehangat hari pertama",
+      "order": 9
+    },
+    {
+      "id": 10,
+      "title": "pantai madasari",
+      "category": "Travel",
+      "completed": true,
+      "completedDate": "26 November 2026",
+      "note": "",
+      "order": 2
+    },
+    {
+      "id": 11,
+      "title": "gunung papandayan",
+      "category": "Travel",
+      "completed": false,
+      "completedDate": null,
+      "note": "",
+      "order": 5
+    },
+    {
+      "id": 12,
+      "title": "gunung merbabu",
+      "category": "Travel",
+      "completed": false,
+      "completedDate": null,
+      "note": "",
+      "order": 6
+    },
+    {
+      "id": 13,
+      "title": "gunung ciremai",
+      "category": "Travel",
+      "completed": false,
+      "completedDate": null,
+      "note": "",
+      "order": 7
+    },
+    {
+      "id": 14,
+      "title": "kawah ijen",
+      "category": "Travel",
+      "completed": false,
+      "completedDate": null,
+      "note": "",
+      "order": 8
+    }
+  ]
+}

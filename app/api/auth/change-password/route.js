@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getSessionUser, verifyPassword, hashPassword } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export async function POST(request) {
   try {
     const session = await getSessionUser();

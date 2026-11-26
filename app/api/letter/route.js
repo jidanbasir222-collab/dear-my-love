@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { getSessionUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function GET() {
   try {
@@ -14,10 +15,10 @@ export async function GET() {
       letter = await prisma.letter.create({
         data: {
           id: 1,
-          recipient: "Untuk zaskia nisa syabani, Bidadari Semestaku",
+          recipient: "Untuk Salsa, Bidadari Semestaku",
           title: "Sebuah Surat Dari Lubuk Hatiku",
           content: "Sayangku, terima kasih telah menjadi bagian paling indah dalam semestaku...",
-          signature: "Dengan segenap cintaku, ahmad zaidan ❤️",
+          signature: "Dengan segenap cintaku, Ahmad ❤️",
           date: "22 November",
         },
       });
@@ -56,7 +57,7 @@ export async function PUT(request) {
         recipient: recipient || "Sayangku",
         title: title || "Sebuah Surat Dari Lubuk Hatiku",
         content: content || "",
-        signature: signature || "ahmad zaidan",
+        signature: signature || "Ahmad",
         date: date || "22 November",
       },
     });

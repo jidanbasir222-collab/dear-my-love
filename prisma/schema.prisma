@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -18,12 +18,12 @@ model SiteSettings {
   id              Int      @id @default(1)
   coupleName1     String   @default("ahmad zaidan")
   coupleName2     String   @default("zaskia nisa syabani")
-  anniversaryDate String   @default("2023-11-22T00:00:00")
+  anniversaryDate String   @default("2026-09-08")
   websiteTitle    String   @default("OUR LITTLE UNIVERSE")
   tagline         String   @default("Every love story has a universe. This one is ours.")
-  heroPhoto       String   @default("/images/hero.jpg")
+  heroPhoto       String   @default("/uploads/1795665069349-biyaax.jpeg")
   finalMessage    String   @default("Terima kasih telah menjadi bagian terindah dalam setiap hariku. Bersamamu, hal-hal sederhana terasa begitu luar biasa.")
-  finalPhoto      String   @default("/images/final.jpg")
+  finalPhoto      String   @default("/uploads/1795665089116-qiv8pc.jpeg")
   themeColors     String   @default("{\"ivory\":\"#FFF9F3\",\"softPink\":\"#F3D5D8\",\"dustyRose\":\"#D9A6AC\",\"burgundy\":\"#743B4A\",\"mutedGold\":\"#C7A36B\"}")
   updatedAt       DateTime @updatedAt
 }

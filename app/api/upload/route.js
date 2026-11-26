@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 import { getSessionUser } from "@/lib/auth";
+import { uploadFile } from "@/lib/storage";
+
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function POST(request) {
   try {
@@ -25,26 +27,15 @@ export async function POST(request) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-
-    // Create unique safe filename
     const originalName = file.name || "upload";
-    const extension = path.extname(originalName).toLowerCase() || ".jpg";
-    const timestamp = Date.now();
-    const randomSuffix = Math.random().toString(36).substring(2, 8);
-    const filename = `${timestamp}-${randomSuffix}${extension}`;
+    const mimeType = file.type || "application/octet-stream";
 
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadDir, { recursive: true });
-
-    const filePath = path.join(uploadDir, filename);
-    await writeFile(filePath, buffer);
-
-    const fileUrl = `/uploads/${filename}`;
+    const fileUrl = await uploadFile(buffer, originalName, mimeType);
 
     return NextResponse.json({
       success: true,
       url: fileUrl,
-      filename,
+      filename: originalName,
       size: file.size,
       type: file.type,
     });

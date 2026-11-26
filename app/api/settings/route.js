@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { getSessionUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function GET() {
   try {
@@ -14,9 +15,9 @@ export async function GET() {
       settings = await prisma.siteSettings.create({
         data: {
           id: 1,
-          coupleName1: "ahmad zaidan",
+          coupleName1: "Ahmad zaidan",
           coupleName2: "zaskia nisa syabani",
-          anniversaryDate: "2023-11-22T00:00:00",
+          anniversaryDate: "2026-09-08",
           websiteTitle: "OUR LITTLE UNIVERSE",
           tagline: "Every love story has a universe. This one is ours.",
         },
@@ -68,9 +69,9 @@ export async function PUT(request) {
       },
       create: {
         id: 1,
-        coupleName1: coupleName1 || "ahmad zaidan",
+        coupleName1: coupleName1 || "Ahmad zaidan",
         coupleName2: coupleName2 || "zaskia nisa syabani",
-        anniversaryDate: anniversaryDate || "2023-11-22T00:00:00",
+        anniversaryDate: anniversaryDate || "2026-09-08",
         websiteTitle: websiteTitle || "OUR LITTLE UNIVERSE",
         tagline: tagline || "Every love story has a universe. This one is ours.",
         heroPhoto: heroPhoto || "/images/hero.jpg",
