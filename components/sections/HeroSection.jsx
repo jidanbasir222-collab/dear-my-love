@@ -11,7 +11,7 @@ export default function HeroSection({ settings }) {
   const coupleName2 = settings?.coupleName2 || "zaskia nisa syabani";
   const websiteTitle = settings?.websiteTitle || "OUR LITTLE UNIVERSE";
   const tagline = settings?.tagline || "Every love story has a universe. This one is ours.";
-  const heroPhoto = settings?.heroPhoto || "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80";
+  const heroPhoto = settings?.heroPhoto || "/uploads/1795665069349-biyaax.jpeg";
 
   // Format anniversary display date
   const annivDateStr = settings?.anniversaryDate

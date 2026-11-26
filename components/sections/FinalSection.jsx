@@ -12,7 +12,7 @@ export default function FinalSection({ settings }) {
     "Terima kasih telah menjadi bagian terindah dalam setiap hariku. Bersamamu, hal-hal sederhana terasa begitu luar biasa. Selamat hari jadi, cintaku. Aku mencintaimu selamanya.";
   const finalPhoto =
     settings?.finalPhoto ||
-    "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1200&q=80";
+    "/uploads/1795665089116-qiv8pc.jpeg";
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
